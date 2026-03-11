@@ -1,5 +1,7 @@
 import 'package:cosmetics/core/designs/icons.dart';
 import 'package:cosmetics/core/logic/colors.dart';
+import 'package:cosmetics/views/home/cart_page.dart';
+import 'package:cosmetics/views/home/categories_page.dart';
 import 'package:cosmetics/views/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,14 +14,12 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 2;
 
   final List<Widget> _pages = [
-     HomePage(
-
-    ),
-    const Center(child: Text("صفحة البحث")),
-    const Center(child: Text("صفحة السلة")),
+     HomePage(),
+    const CategoriesPage(),
+    const CartPage(),
     const Center(child: Text("صفحة الملف الشخصي")),
   ];
 

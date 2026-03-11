@@ -32,29 +32,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TextField(
-          decoration: InputDecoration(
-            suffixIcon: SvgPicture.asset(
-              AppIcons.search,
-              color: kPrimaryDarkBlue,
-              fit: BoxFit.scaleDown,
-            ),
-            labelText: 'Search',
-            labelStyle: TextStyles.smallDarkBlue,
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: kPrimaryDarkBlue),
-              borderRadius: BorderRadius.circular(26),
-            ),
-            border: OutlineInputBorder(
-              borderSide: BorderSide(color: kPrimaryDarkBlue),
-              borderRadius: BorderRadius.circular(26),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: kPrimaryDarkBlue, width: 2),
-              borderRadius: BorderRadius.circular(26),
-            ),
-          ),
-        ),
+        SearchTextField(),
         Expanded(
           child: ListView(
             children: [
@@ -100,6 +78,39 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class SearchTextField extends StatelessWidget {
+  const SearchTextField({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      decoration: InputDecoration(
+        suffixIcon: SvgPicture.asset(
+          AppIcons.search,
+          color: kPrimaryDarkBlue,
+          fit: BoxFit.scaleDown,
+        ),
+        labelText: 'Search',
+        labelStyle: TextStyles.smallDarkBlue,
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: kPrimaryDarkBlue),
+          borderRadius: BorderRadius.circular(26),
+        ),
+        border: OutlineInputBorder(
+          borderSide: BorderSide(color: kPrimaryDarkBlue),
+          borderRadius: BorderRadius.circular(26),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: kPrimaryDarkBlue, width: 2),
+          borderRadius: BorderRadius.circular(26),
+        ),
+      ),
     );
   }
 }

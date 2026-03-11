@@ -10,6 +10,8 @@ static const String _basePath = 'assets/icons/nav_bar_icon';
 static const String _basePathD = 'assets/icons';
 //Profile icons:
   static const String search = '$_basePathD/search.svg';
+  static const String rightArrow = '$_basePathD/arrow_right.svg';
+  static const String cartCheckout = '$_basePathD/cart-checkout.svg';
 
 }
 
