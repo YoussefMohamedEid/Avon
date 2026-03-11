@@ -19,7 +19,7 @@ class _HomeViewState extends State<HomeView> {
   final List<Widget> _pages = [
      HomePage(),
     const CategoriesPage(),
-    const CartPage(),
+     CartPage(),
     const Center(child: Text("صفحة الملف الشخصي")),
   ];
 

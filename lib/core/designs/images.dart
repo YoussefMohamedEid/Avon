@@ -21,6 +21,7 @@ class AppImages {
   // Home:
   static const String ads = '$_basePath/home/ads.png';
   static const String makeup = '$_basePath/home/makeup.png';
+  static const String addMakeUp = '$_basePath/home/addMakeUp.png';
 
 
 }
