@@ -22,7 +22,8 @@ class _SignUpViewState extends State<SignUpView> {
     final TextEditingController nameController = TextEditingController();
     final TextEditingController emailController = TextEditingController();
     final TextEditingController phoneController = TextEditingController();
-
+final TextEditingController pass1 = TextEditingController();
+ final TextEditingController pass2 = TextEditingController();
   @override
  void dispose() {
     nameController.dispose();
@@ -62,9 +63,9 @@ class _SignUpViewState extends State<SignUpView> {
                   SizedBox(height: 20),
                   PhoneNumberWidget(phoneController: phoneController),
                   SizedBox(height: 20),
-                  PasswordWidget(hintText: "Create Your password"),
+                  PasswordWidget(hintText: "Create Your password",controller:pass1 ,),
                   SizedBox(height: 20),
-                  PasswordWidget(hintText: "Confirm password"),
+                  PasswordWidget(hintText: "Confirm password",controller:pass2 ,),
                   SizedBox(height: 20),
                   CustomMainButton(
                     text: "Sign Up",
@@ -86,7 +87,7 @@ class _SignUpViewState extends State<SignUpView> {
                       TextButton(
                         child: Text("Login", style: TextStyles.smallMov),
                         onPressed: () {
-                          GoTo.to(context, const LoginView());
+                          GoTo.off(context, const LoginView());
                         },
                       ),
                     ],

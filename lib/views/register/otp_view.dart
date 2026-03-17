@@ -7,6 +7,7 @@ import 'package:cosmetics/core/logic/adaptive_text.dart';
 import 'package:cosmetics/core/logic/colors.dart';
 import 'package:cosmetics/core/logic/go_to.dart';
 import 'package:cosmetics/views/home/home_view.dart';
+import 'package:cosmetics/views/register/change_password.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -19,8 +20,8 @@ class OtpView extends StatelessWidget {
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
     return GestureDetector(
-      onTap: (){
-         FocusManager.instance.primaryFocus?.unfocus();
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
         body: Padding(
@@ -77,7 +78,8 @@ class OtpView extends StatelessWidget {
                           ),
                         ),
                         TextSpan(
-                          text: ". Enter the code in the box below to continue.",
+                          text:
+                              ". Enter the code in the box below to continue.",
                         ),
                       ],
                     ),
@@ -98,13 +100,15 @@ class OtpView extends StatelessWidget {
                     ),
                   ),
                   // استبدال OTPWidget القديم بالجديد
-                  const OTPWidget(),
+                   OTPWidget(isEmail: isEmail,),
                   SizedBox(height: AppDimensions.screenHeight * 0.04),
                   CustomMainButton(
                     text: "Done",
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
-                        GoTo.offAll(context, HomeView());
+                        isEmail
+                            ? GoTo.offAll(context, HomeView())
+                            : GoTo.offAll(context, ChangePassword());
                       }
                     },
                   ),
@@ -119,7 +123,8 @@ class OtpView extends StatelessWidget {
 }
 
 class OTPWidget extends StatefulWidget {
-  const OTPWidget({super.key});
+  const OTPWidget({super.key, required this.isEmail});
+  final bool isEmail;
 
   @override
   State<OTPWidget> createState() => _OTPWidgetState();
@@ -187,7 +192,7 @@ class _OTPWidgetState extends State<OTPWidget> {
             onCompleted: (value) {
               // يتم استدعاؤها عند اكتمال الإدخال (امتلاء جميع الخانات)
               print("اكتمل الإدخال: $value");
-              _verifyOtpCode(value);
+              _verifyOtpCode(value, widget.isEmail);
             },
             pinTheme: PinTheme(
               shape: PinCodeFieldShape.box, // شكل مربع
@@ -244,7 +249,7 @@ class _OTPWidgetState extends State<OTPWidget> {
     return '$minutes:${remainingSeconds.toString().padLeft(2, '0')}';
   }
 
-  void _verifyOtpCode(String otp) {
+  void _verifyOtpCode(String otp, bool isEmail) {
     print("جاري التحقق من الكود: $otp");
     showDialog(
       context: context,
@@ -264,9 +269,11 @@ class _OTPWidgetState extends State<OTPWidget> {
                 ),
                 const SizedBox(height: 20),
                 CustomMainButton(
-                  text: "Go to Home",
+                  text: isEmail ? "Go to Home" : "Change Password",
                   onPressed: () {
-                    GoTo.offAll(context, HomeView());
+                    isEmail
+                            ? GoTo.offAll(context, HomeView())
+                            : GoTo.offAll(context, ChangePassword());
                   },
                 ),
               ],

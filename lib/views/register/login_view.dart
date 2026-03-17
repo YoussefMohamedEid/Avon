@@ -2,7 +2,7 @@ import 'package:cosmetics/core/designs/custom_button.dart';
 import 'package:cosmetics/core/designs/images.dart';
 import 'package:cosmetics/core/logic/adaptive_app_dimentions.dart';
 import 'package:cosmetics/core/logic/adaptive_text.dart';
- import'package:cosmetics/core/logic/go_to.dart';
+import 'package:cosmetics/core/logic/go_to.dart';
 import 'package:cosmetics/views/register/forget_password.dart';
 import 'package:cosmetics/views/register/sign_up_view.dart';
 import 'package:cosmetics/views/register/widgets/password.dart';
@@ -17,18 +17,20 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-    final TextEditingController phoneController = TextEditingController();
-    
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   @override
   dispose() {
     phoneController.dispose(); // التخلص
     super.dispose();
   }
+
   Widget build(BuildContext context) {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     return GestureDetector(
-      onTap: (){
-         FocusManager.instance.primaryFocus?.unfocus();
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
         body: Padding(
@@ -54,11 +56,11 @@ class _LoginViewState extends State<LoginView> {
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 18),
-                  PhoneNumberWidget(
-                    phoneController: phoneController,
-                  ),
+                  PhoneNumberWidget(phoneController: phoneController),
                   SizedBox(height: 6),
-                  PasswordWidget(),
+                  PasswordWidget(
+                    controller:passwordController ,
+                  ),
                   SizedBox(height: 6),
                   Align(
                     alignment: Alignment.centerRight,
@@ -67,7 +69,7 @@ class _LoginViewState extends State<LoginView> {
                         "Forgot password?",
                         style: TextStyles.smallMov,
                       ),
-      
+
                       onPressed: () {
                         GoTo.to(context, const ForgetPasswordView());
                       },
@@ -94,7 +96,7 @@ class _LoginViewState extends State<LoginView> {
                       TextButton(
                         child: Text("Sign Up", style: TextStyles.smallMov),
                         onPressed: () {
-                          GoTo.to(context, const SignUpView());
+                          GoTo.off(context, const SignUpView());
                         },
                       ),
                     ],
