@@ -91,17 +91,17 @@ class SearchTextField extends StatelessWidget {
       decoration: InputDecoration(
         suffixIcon: SvgPicture.asset(
           AppIcons.search,
-          color: kPrimaryDarkBlue,
+          color: kPrimaryLightBlue,
           fit: BoxFit.scaleDown,
         ),
         labelText: 'Search',
         labelStyle: TextStyles.smallDarkBlue,
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: kPrimaryDarkBlue),
+          borderSide: BorderSide(color: kPrimaryLightBlue),
           borderRadius: BorderRadius.circular(26),
         ),
         border: OutlineInputBorder(
-          borderSide: BorderSide(color: kPrimaryDarkBlue),
+          borderSide: BorderSide(color: kPrimaryLightBlue),
           borderRadius: BorderRadius.circular(26),
         ),
         focusedBorder: OutlineInputBorder(
@@ -126,7 +126,7 @@ class ProductGridItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: kWhite,
+      color: kSemiwhite,
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
@@ -159,7 +159,7 @@ class ProductGridItem extends StatelessWidget {
                       child: Container(
                         padding: EdgeInsets.all(6),
                         decoration: BoxDecoration(
-                          color: kWhite,
+                          color:  Color(0xFFFFFAFA),
                           borderRadius: BorderRadius.circular(8),
                           boxShadow: [
                             BoxShadow(

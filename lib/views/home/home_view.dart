@@ -1,11 +1,9 @@
-
 import 'package:cosmetics/views/home/pages/cart_page.dart';
 import 'package:cosmetics/views/home/pages/categories_page.dart';
 import 'package:cosmetics/views/home/pages/home_page.dart';
 import 'package:cosmetics/views/home/navigation_bar_widget.dart';
 import 'package:cosmetics/views/home/pages/profile_page.dart';
 import 'package:flutter/material.dart';
-
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -15,12 +13,12 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  int _selectedIndex = 3;
+  int _selectedIndex = 0;
 
   final List<Widget> _pages = [
     HomePage(),
     const CategoriesPage(),
-    CartPage(),
+   const CartPage(),
     const ProfilePage(),
   ];
 

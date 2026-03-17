@@ -1,4 +1,3 @@
-
 import 'package:cosmetics/core/designs/icons.dart';
 import 'package:cosmetics/core/logic/colors.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +26,7 @@ class CustomNavigationButton extends StatelessWidget {
               offset: const Offset(0, 4),
             ),
           ],
-          color: kWhite,
+          color: kSemiwhite,
           borderRadius: BorderRadius.circular(25),
         ),
         child: Row(

@@ -1,11 +1,10 @@
-
 import 'package:cosmetics/core/logic/colors.dart';
 import 'package:cosmetics/views/register/countries/countries_widget.dart';
 import 'package:flutter/material.dart';
 
 class PhoneNumberWidget extends StatelessWidget {
-  const PhoneNumberWidget({super.key,required this.phoneController});
-  final TextEditingController phoneController ;
+  const PhoneNumberWidget({super.key, required this.phoneController});
+  final TextEditingController phoneController;
   @override
   Widget build(BuildContext context) {
     //  Country? selectedCountry;
@@ -14,7 +13,7 @@ class PhoneNumberWidget extends StatelessWidget {
 
       children: [
         Expanded(
-          flex: 2,
+          flex: 1,
           child: CountryPickerButton(
             onCountryChanged: (country) {
               //  setState(() {
@@ -26,7 +25,7 @@ class PhoneNumberWidget extends StatelessWidget {
         ),
         SizedBox(width: 6),
         Expanded(
-          flex: 3,
+          flex: 2,
           child: TextFormField(
             controller: phoneController,
             validator: (value) {

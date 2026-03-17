@@ -45,20 +45,20 @@ class _CountryPickerButtonState extends State<CountryPickerButton> {
                 value: country,
                 child: Row(
                   children: [
-                    Text(
-                      country.flag,
-                      style: TextStyles.smallLightBlue.copyWith(fontSize: 22),
-                    ),
+                    // Text(
+                    //   country.flag,
+                    //   style: TextStyles.smallLightBlue.copyWith(fontSize: 22),
+                    // ),
                     SizedBox(width: 8),
                     Text(country.code),
                     SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        country.nameEN,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyles.smallLightBlue,
-                      ),
-                    ),
+                    // Expanded(
+                    //   child: Text(
+                    //     country.nameEN,
+                    //     overflow: TextOverflow.ellipsis,
+                    //     style: TextStyles.smallLightBlue,
+                    //   ),
+                    // ),
                   ],
                 ),
               );

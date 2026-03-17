@@ -260,10 +260,10 @@ class _OTPWidgetState extends State<OTPWidget> {
               children: [
                 Image.asset(AppImages.rightOTP, height: 100),
                 const SizedBox(height: 10),
-                Text("Account Activated!", style: TextStyles.mediumDarkBlue),
+                Text(isEmail?"Account Activated!":"Password Created!", style: TextStyles.mediumDarkBlue),
                 const SizedBox(height: 10),
                 Text(
-                  "Congratulations! Your account has been successfully activated.",
+                 isEmail? "Congratulations! Your account has been successfully activated.":"Congratulations! Your password has been successfully created",
                   textAlign: TextAlign.center,
                   style: TextStyles.smallLightBlue,
                 ),
