@@ -24,4 +24,8 @@ class AppImages {
   static const String addMakeUp = '$_basePath/home/addMakeUp.png';
 
 
+  // profile:
+  static const String profileCover = '$_basePath/profile/profile_cover.png';
+
+
 }

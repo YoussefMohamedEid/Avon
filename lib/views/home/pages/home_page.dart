@@ -36,7 +36,6 @@ class HomePage extends StatelessWidget {
         Expanded(
           child: ListView(
             children: [
-              SizedBox(height: 20),
               Image.asset(AppImages.ads, fit: BoxFit.cover),
               SizedBox(height: 20),
               Align(
@@ -66,7 +65,8 @@ class HomePage extends StatelessWidget {
                         SnackBar(
                           backgroundColor: kPrimaryMov,
                           content: Text(
-                            'تمت إضافة ${products[index].name} إلى السلة',style: TextStyles.smallWhite,
+                            'تمت إضافة ${products[index].name} إلى السلة',
+                            style: TextStyles.smallWhite,
                           ),
                         ),
                       );
@@ -83,9 +83,7 @@ class HomePage extends StatelessWidget {
 }
 
 class SearchTextField extends StatelessWidget {
-  const SearchTextField({
-    super.key,
-  });
+  const SearchTextField({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -2,13 +2,14 @@ import 'package:cosmetics/core/logic/colors.dart';
 import 'package:flutter/material.dart';
 
 class FormFieldWidget extends StatelessWidget {
-  const FormFieldWidget({super.key, required this.hintText});
+  const FormFieldWidget({super.key, required this.hintText, required this.controller});
 
 final String hintText;
-
+final TextEditingController controller ;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Please enter the $hintText';

@@ -1,9 +1,7 @@
 import 'package:cosmetics/core/designs/icons.dart';
 import 'package:cosmetics/core/designs/images.dart';
-
 import 'package:cosmetics/core/logic/adaptive_text.dart';
-
-import 'package:cosmetics/views/home/home_page.dart';
+import 'package:cosmetics/views/home/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

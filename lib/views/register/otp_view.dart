@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cosmetics/core/designs/custom_button.dart';
 import 'package:cosmetics/core/designs/images.dart';
 import 'package:cosmetics/core/logic/adaptive_app_dimentions.dart';
@@ -5,69 +7,105 @@ import 'package:cosmetics/core/logic/adaptive_text.dart';
 import 'package:cosmetics/core/logic/colors.dart';
 import 'package:cosmetics/core/logic/go_to.dart';
 import 'package:cosmetics/views/home/home_view.dart';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_otp_auto_field/flutter_otp_auto_field.dart';
-import 'package:flutter_otp_auto_field/otp_service.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OtpView extends StatelessWidget {
-  const OtpView({super.key});
+  const OtpView({super.key, required this.checkThe, required this.isEmail});
+  final String checkThe;
+  final bool isEmail;
 
   @override
   Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(13.0),
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(height: AppDimensions.screenHeight * 0.12),
-              Image.asset(
-                AppImages.logo,
-                height: AppDimensions.screenHeight * 0.12,
-              ),
-              SizedBox(height: 40),
-              Text("Verify code", style: TextStyles.bigDarkBlue),
-              SizedBox(height: 40),
-              RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  style: TextStyles.smallLightBlue,
-                  children: [
-                    TextSpan(
-                      text:
-                          "We just sent a 4-digit verification code to your email ",
-                    ),
-                    TextSpan(
-                      text: "amramer522@gmail.com",
-                      style: TextStyles.smallLightBlue.copyWith(
-                        fontWeight: FontWeight.bold,
+          child: Form(
+            key: formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(height: AppDimensions.screenHeight * 0.035),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: CircleAvatar(
+                    backgroundColor: kSemiwhite,
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.arrow_back_ios_new_outlined,
+                        color: Color(0xff101010),
                       ),
+                      onPressed: () {
+                        GoTo.back(context);
+                      },
                     ),
-                    TextSpan(
-                      text: ". Enter the code in the box below to continue.",
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 40),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: TextButton(
-                  onPressed: () {
-                    GoTo.back(context);
-                  },
-                  child: Text(
-                    "Edit the phone number",
-                    style: TextStyles.smallMov,
                   ),
                 ),
-              ),
-              OTPWidget(),
-              SizedBox(height: AppDimensions.screenHeight * 0.04),
-            ],
+                SizedBox(height: AppDimensions.screenHeight * 0.08),
+                Image.asset(
+                  AppImages.logo,
+                  height: AppDimensions.screenHeight * 0.12,
+                ),
+                SizedBox(height: 40),
+                Text("Verify code", style: TextStyles.bigDarkBlue),
+                SizedBox(height: 40),
+                RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    style: TextStyles.smallLightBlue,
+                    children: [
+                      TextSpan(
+                        text: "We just sent a 4-digit verification code to ",
+                      ),
+                      TextSpan(
+                        text:
+                            isEmail
+                                ? "your email address "
+                                : "your phone number ",
+                      ),
+                      TextSpan(
+                        text: checkThe,
+                        style: TextStyles.smallLightBlue.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      TextSpan(
+                        text: ". Enter the code in the box below to continue.",
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 40),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    onPressed: () {
+                      GoTo.back(context);
+                    },
+                    child: Text(
+                      isEmail
+                          ? "Edit the email address"
+                          : "Edit the phone number",
+                      style: TextStyles.smallMov,
+                    ),
+                  ),
+                ),
+                // استبدال OTPWidget القديم بالجديد
+                const OTPWidget(),
+                SizedBox(height: AppDimensions.screenHeight * 0.04),
+                CustomMainButton(
+                  text: "Done",
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      GoTo.offAll(context, HomeView());
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -83,23 +121,41 @@ class OTPWidget extends StatefulWidget {
 }
 
 class _OTPWidgetState extends State<OTPWidget> {
+  // Controller لإدارة النص في حقل OTP
+  final TextEditingController _otpController = TextEditingController();
+  int _secondsRemaining = 60; // الوقت المتبقي بالثواني
+  bool _canResend = false; // هل يمكن إعادة الإرسال؟
+  Timer? _timer; // كائن المؤقت
+
   @override
   void initState() {
     super.initState();
-    _initializeOtpListener();
+    _startTimer();
   }
 
-  void _initializeOtpListener() {
-    try {
-      OtpService().init(); // بدأ الاستماع
-      OtpService().otpStream.listen((otp) {
-        print("تم استقبال OTP تلقائياً: $otp");
-        // هنا هيدخل الكود لوحده في الخانات! الباقة بتشتغل مع الـ Stream.
-        // مش محتاجة تعملي حاجة.
-      });
-    } catch (e) {
-      print("خطأ في بدء الاستماع: $e"); // لو في مشكلة (زي ما يكون في SDK)
-    }
+  @override
+  void dispose() {
+    // _otpController.dispose();
+    _timer?.cancel(); // إيقاف المؤقت عند الخروج
+    super.dispose();
+  }
+
+  void _startTimer() {
+    _canResend = false; // نمنع إعادة الإرسال أثناء العد
+    _secondsRemaining = 5;
+    _timer?.cancel(); // إلغاء أي مؤقت سابق
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_secondsRemaining > 0) {
+        setState(() {
+          _secondsRemaining--;
+        });
+      } else {
+        setState(() {
+          _canResend = true; // عند انتهاء الوقت، يمكن إعادة الإرسال
+        });
+        timer.cancel(); // إيقاف المؤقت
+      }
+    });
   }
 
   @override
@@ -107,52 +163,81 @@ class _OTPWidgetState extends State<OTPWidget> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        // 2. استخدام الـ Widget الخاص بالباقة
-        FlutterOtpAutoField(
-          length: 4, // عدد الخانات
-          //autoFocus: true, // أول خانة تفتح الكيبورد تلقائي
-          onCompleted: (value) {
-            // 3. حصل خير، كل الخانات اتملت
-            print("اكتمل الإدخال: $value");
-            _verifyOtpCode(value); // نوديها لدالة التحقق
+        // حقل OTP باستخدام pin_code_fields
+        PinCodeTextField(
+          validator: (value) {
+            if (value == null || value.length != 4) {
+              return "Please enter the 4-digit code";
+            }
+            return null; // إذا كان الإدخال صحيحًا
           },
-          decoration: BoxDecoration(
-            // تخصيص شكل الخانة
-            border: Border.all(color: kPrimaryMov),
+          appContext: context, // required: السياق
+          length: 4, // عدد الخانات
+          controller: _otpController, // للتحكم في النص
+          onChanged: (value) {
+            // يمكنك تنفيذ شيء عند تغيير النص (اختياري)
+          },
+          onCompleted: (value) {
+            // يتم استدعاؤها عند اكتمال الإدخال (امتلاء جميع الخانات)
+            print("اكتمل الإدخال: $value");
+            _verifyOtpCode(value);
+          },
+          pinTheme: PinTheme(
+            shape: PinCodeFieldShape.box, // شكل مربع
             borderRadius: BorderRadius.circular(12),
+            fieldHeight: 60,
+            fieldWidth: 55,
+            borderWidth: 1.5,
+            activeColor:
+                kPrimaryMov, // لون الخانة النشطة (التي يتم التركيز عليها)
+            inactiveColor: Colors.grey, // لون الخانة غير النشطة
+            selectedColor: kPrimaryMov, // لون الخانة عند الضغط عليها
+            // يمكنك تفعيل الألوان المملوءة إذا أردت:
+            // activeFillColor: kPrimaryMov.withOpacity(0.1),
+            // inactiveFillColor: Colors.grey.shade200,
+            // selectedFillColor: kPrimaryMov.withOpacity(0.2),
           ),
-          // في خصائص تانية كتير للتخصيص
-          boxWidth: 55,
-          boxHeight: 60,
-          textStyle: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-          obscureText: false, // لو عايزاها علامات نجمية
+          keyboardType: TextInputType.number, // لوحة أرقام
+          textStyle: TextStyles.mediumDarkBlue, // نمط النص داخل الخانات
+          enableActiveFill: false, // إذا جعلتها true ستستخدم fill colors
+          autoFocus: true, // أول خانة تحصل على التركيز تلقائياً
+          obscureText: false, // لا تخفِ النص
         ),
         const SizedBox(height: 43),
         Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment:
+              _canResend
+                  ? MainAxisAlignment.start
+                  : MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text("Didn't receive the code?", style: TextStyles.smallLightBlue),
-            TextButton(
-              child: Text("Resend now.", style: TextStyles.smallMov),
-              onPressed: () {
-                _resendOtp();
-              },
-            ),
+
+            _canResend
+                ? TextButton(
+                  child: Text("Resend now.", style: TextStyles.smallMov),
+                  onPressed: () {
+                    _resendOtp();
+                  },
+                )
+                : Text(
+                  _formatTime(_secondsRemaining), // استخدام الدالة الجديدة
+                  style: TextStyles.smallLightBlue,
+                ),
           ],
         ),
       ],
     );
   }
 
+  String _formatTime(int seconds) {
+    int minutes = seconds ~/ 60; // عدد الدقائق
+    int remainingSeconds = seconds % 60; // الثواني المتبقية
+    return '$minutes:${remainingSeconds.toString().padLeft(2, '0')}';
+  }
+
   void _verifyOtpCode(String otp) {
-    // هنا هتكتبي المنطق بتاعك، زي:
-    // 1. عرض مؤشر تحميل.
-    // 2. استدعاء API للتأكد من الكود.
-    // 3. لو صح، تروحي للصفحة الجاية.
-    // 4. لو غلط، تظهر رسالة خطأ.
     print("جاري التحقق من الكود: $otp");
-    // مثال بسيط:
     showDialog(
       context: context,
       builder:
@@ -173,7 +258,7 @@ class _OTPWidgetState extends State<OTPWidget> {
                 CustomMainButton(
                   text: "Go to Home",
                   onPressed: () {
-                    GoTo.offAll(context,HomeView());
+                    GoTo.offAll(context, HomeView());
                   },
                 ),
               ],
@@ -183,7 +268,6 @@ class _OTPWidgetState extends State<OTPWidget> {
   }
 
   void _resendOtp() {
-    // هنا هتكتبي منطق إعادة إرسال الكود (استدعاء API تاني)
     print("تم طلب إعادة الإرسال");
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -191,5 +275,6 @@ class _OTPWidgetState extends State<OTPWidget> {
         content: Text("تم إرسال كود جديد", style: TextStyles.smallWhite),
       ),
     );
+    _startTimer();
   }
 }

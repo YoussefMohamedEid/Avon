@@ -78,14 +78,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.0"
-  flutter_otp_auto_field:
-    dependency: "direct main"
-    description:
-      name: flutter_otp_auto_field
-      sha256: e38d5025bd3b347466d1662df27c8d20784f8d35e8ed5d75cfd443399c2cab7e
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.3"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -195,14 +187,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.0"
-  plugin_platform_interface:
-    dependency: transitive
+  pin_code_fields:
+    dependency: "direct main"
     description:
-      name: plugin_platform_interface
-      sha256: "4820fbfdb9478b1ebae27888254d445073732dae3d6ea81f0b7e06d5dedc3f02"
+      name: pin_code_fields
+      sha256: "4c0db7fbc889e622e7c71ea54b9ee624bb70c7365b532abea0271b17ea75b729"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.8"
+    version: "8.0.1"
   sky_engine:
     dependency: transitive
     description: flutter

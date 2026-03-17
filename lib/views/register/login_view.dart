@@ -3,15 +3,27 @@ import 'package:cosmetics/core/designs/images.dart';
 import 'package:cosmetics/core/logic/adaptive_app_dimentions.dart';
 import 'package:cosmetics/core/logic/adaptive_text.dart';
  import'package:cosmetics/core/logic/go_to.dart';
+import 'package:cosmetics/views/register/forget_password.dart';
 import 'package:cosmetics/views/register/sign_up_view.dart';
 import 'package:cosmetics/views/register/widgets/password.dart';
 import 'package:cosmetics/views/register/widgets/phone_number.dart';
 import 'package:flutter/material.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
   const LoginView({super.key});
 
   @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
+    final TextEditingController phoneController = TextEditingController();
+    
+  @override
+  dispose() {
+    phoneController.dispose(); // التخلص
+    super.dispose();
+  }
   Widget build(BuildContext context) {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     return Scaffold(
@@ -38,7 +50,9 @@ class LoginView extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 18),
-                PhoneNumberWidget(),
+                PhoneNumberWidget(
+                  phoneController: phoneController,
+                ),
                 SizedBox(height: 6),
                 PasswordWidget(),
                 SizedBox(height: 6),
@@ -46,12 +60,12 @@ class LoginView extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: TextButton(
                     child: Text(
-                      "Forgot your password?",
+                      "Forgot password?",
                       style: TextStyles.smallMov,
                     ),
 
                     onPressed: () {
-                      // Handle forgot password logic here
+                      GoTo.to(context, const ForgetPasswordView());
                     },
                   ),
                 ),

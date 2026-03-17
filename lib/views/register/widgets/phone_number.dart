@@ -4,11 +4,14 @@ import 'package:cosmetics/views/register/countries/countries_widget.dart';
 import 'package:flutter/material.dart';
 
 class PhoneNumberWidget extends StatelessWidget {
-  const PhoneNumberWidget({super.key});
+  const PhoneNumberWidget({super.key,required this.phoneController});
+  final TextEditingController phoneController ;
   @override
   Widget build(BuildContext context) {
     //  Country? selectedCountry;
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+
       children: [
         Expanded(
           flex: 2,
@@ -25,6 +28,7 @@ class PhoneNumberWidget extends StatelessWidget {
         Expanded(
           flex: 3,
           child: TextFormField(
+            controller: phoneController,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your phone number';
