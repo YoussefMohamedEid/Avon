@@ -21,9 +21,7 @@ class CheckoutView extends StatelessWidget {
           ),
         ),
         child: Column(
-          children: [
-            Text("Delivery to",style: TextStyles.mediumDarkBlue)
-          ],
+          children: [Text("Delivery to", style: TextStyles.mediumDarkBlue)],
         ),
       ),
     );
