@@ -8,22 +8,30 @@ class CustomMainButton extends StatelessWidget {
     this.onPressed,
     required this.text,
     this.buttonColor = kPrimaryMov,
+    this.width = double.infinity,
+    this.paddingHorizontal = 20,
+    this.paddingVertical = 12,
   });
 
   final void Function()? onPressed;
   final String text;
   final Color buttonColor;
+  final double width;
+  final double paddingHorizontal;
+  final double paddingVertical;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20),
-      width: double.infinity,
+    return SizedBox(
+      width: width,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(26),
           ),
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.symmetric(
+            horizontal: paddingHorizontal,
+            vertical: paddingVertical,
+          ),
           backgroundColor: buttonColor, // Button color
         ),
         onPressed: onPressed,

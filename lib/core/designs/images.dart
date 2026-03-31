@@ -1,4 +1,3 @@
-
 class AppImages {
   // المسار الأساسي للصور
 
@@ -23,9 +22,10 @@ class AppImages {
   static const String makeup = '$_basePath/home/makeup.png';
   static const String addMakeUp = '$_basePath/home/addMakeUp.png';
 
+  // Checkout:
+  static const String mapCheckout = '$_basePath/mapCheckout.png';
+  static const String meza = '$_basePath/meza.png';
 
   // profile:
   static const String profileCover = '$_basePath/profile/profile_cover.png';
-
-
 }

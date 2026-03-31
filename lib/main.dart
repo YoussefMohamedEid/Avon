@@ -1,9 +1,7 @@
 import 'package:cosmetics/core/logic/adaptive_app_dimentions.dart';
 import 'package:cosmetics/core/logic/adaptive_text.dart';
 import 'package:cosmetics/core/logic/colors.dart';
-import 'package:cosmetics/views/home/home_view.dart';
-import 'package:cosmetics/views/splash_view.dart';
-import 'package:cosmetics/views/checkout.dart';
+import 'package:cosmetics/views/checkout/checkout.dart';
 
 import 'package:flutter/material.dart';
 

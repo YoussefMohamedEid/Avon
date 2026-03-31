@@ -23,6 +23,7 @@ static const String _basePathP = 'assets/profile';
   static const String settings = '$_basePathP/settings.svg';
   static const String voucher = '$_basePathP/voucher.svg';
   static const String logout = '$_basePathP/logout.svg';
+  static const String discountShape = 'assets/discount-shape.svg';
 
 
 

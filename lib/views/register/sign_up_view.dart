@@ -32,6 +32,7 @@ final TextEditingController pass1 = TextEditingController();
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
     return GestureDetector(

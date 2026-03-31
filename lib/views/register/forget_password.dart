@@ -22,6 +22,7 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
     phoneController.dispose(); // التخلص
     super.dispose();
   }
+  @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
     return Scaffold(
