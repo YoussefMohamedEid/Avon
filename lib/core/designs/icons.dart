@@ -25,7 +25,9 @@ static const String _basePathP = 'assets/profile';
   static const String logout = '$_basePathP/logout.svg';
   static const String discountShape = 'assets/discount-shape.svg';
 
+// checkout icons:
 
+  static const String orderCart = 'assets/icons/order.svg';
 
 
 }

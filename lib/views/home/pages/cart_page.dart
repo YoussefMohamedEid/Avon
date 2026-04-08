@@ -2,6 +2,8 @@ import 'package:cosmetics/core/designs/icons.dart';
 import 'package:cosmetics/core/designs/images.dart';
 import 'package:cosmetics/core/logic/adaptive_app_dimentions.dart';
 import 'package:cosmetics/core/logic/adaptive_text.dart';
+import 'package:cosmetics/core/logic/go_to.dart';
+import 'package:cosmetics/views/checkout/checkout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -23,7 +25,12 @@ class _CartPageState extends State<CartPage> {
             Spacer(),
             Text('My Cart', style: TextStyles.bigDarkBlue),
             Spacer(),
-            Align(child: SvgPicture.asset(AppIcons.cartCheckout)),
+            Align(child: GestureDetector(
+              onTap: (){
+                GoTo.to(context, CheckoutView());
+              
+              },
+              child: SvgPicture.asset(AppIcons.cartCheckout))),
           ],
         ),
         SizedBox(height: 20),

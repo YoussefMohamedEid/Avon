@@ -1,7 +1,8 @@
 import 'package:cosmetics/core/logic/adaptive_app_dimentions.dart';
 import 'package:cosmetics/core/logic/adaptive_text.dart';
 import 'package:cosmetics/core/logic/colors.dart';
-import 'package:cosmetics/views/checkout/checkout.dart';
+
+import 'package:cosmetics/views/splash_view.dart';
 
 import 'package:flutter/material.dart';
 
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
         ),
         colorScheme: ColorScheme.fromSeed(seedColor: kPrimaryMov),
       ),
-      home: const CheckoutView(),
+      home: const SplashView(),
     );
   }
 }

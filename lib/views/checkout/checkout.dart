@@ -14,7 +14,6 @@ class CheckoutView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: AppBar(
         centerTitle: true,
         title: Text("Checkout", style: TextStyles.mediumDarkBlue),
@@ -30,76 +29,156 @@ class CheckoutView extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 27.0, vertical: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Delivery to",
-                style: TextStyles.mediumDarkBlue.copyWith(
-                  fontWeight: FontWeight.w500,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Delivery to",
+                  style: TextStyles.mediumDarkBlue.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
-              SizedBox(height: 18),
-              MapWidget(),
-              SizedBox(height: 40),
-              Text(
-                "Payment method",
-                style: TextStyles.mediumDarkBlue.copyWith(
-                  fontWeight: FontWeight.w500,
+                SizedBox(height: 18),
+                MapWidget(),
+                SizedBox(height: 40),
+                Text(
+                  "Payment method",
+                  style: TextStyles.mediumDarkBlue.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
-              SizedBox(height: 18),
-              CheckoutContainer(
-                hight: 57,
-                inputContainer: Row(
-                  children: [
-                    Image(
-                      image: AssetImage(AppImages.meza),
-                      width: AppDimensions.imageWidth(0.1),
-                      height: AppDimensions.imageHeight(0.035),
-                    ),
-                    SizedBox(width: 15),
-                    Expanded(
-                      child: Text(
-                        "****  ****  ****  2002",
-                        style: TextStyles.smallDarkBlue,
+                SizedBox(height: 18),
+                CheckoutContainer(
+                  hight: 57,
+                  inputContainer: Row(
+                    children: [
+                      Image(
+                        image: AssetImage(AppImages.meza),
+                        width: AppDimensions.imageWidth(0.1),
+                        height: AppDimensions.imageHeight(0.035),
                       ),
-                    ),
-                    Icon(Icons.arrow_drop_down, color: kPrimaryMov, size: 24),
-                  ],
+                      SizedBox(width: 15),
+                      Expanded(
+                        child: Text(
+                          "****  ****  ****  2002",
+                          style: TextStyles.smallDarkBlue,
+                        ),
+                      ),
+                      Icon(Icons.arrow_drop_down, color: kPrimaryMov, size: 24),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(height: 12),
-              CheckoutContainer(
-                hight: 57,
-                inputContainer: Row(
-                  children: [
-                    SvgPicture.asset(
-                      AppIcons.discountShape,
-                      width: AppDimensions.imageWidth(0.1),
-                      height: AppDimensions.imageHeight(0.035),
-                    ),
+                SizedBox(height: 12),
+                CheckoutContainer(
+                  hight: 57,
+                  inputContainer: Row(
+                    children: [
+                      SvgPicture.asset(
+                        AppIcons.discountShape,
+                        width: AppDimensions.imageWidth(0.1),
+                        height: AppDimensions.imageHeight(0.035),
+                      ),
 
-                    SizedBox(width: 15),
-                    Expanded(
-                      child: Text(
-                        "Add vaucher",
-                        style: TextStyles.smallDarkBlue,
+                      SizedBox(width: 15),
+                      Expanded(
+                        child: Text(
+                          "Add vaucher",
+                          style: TextStyles.smallDarkBlue,
+                        ),
+                      ),
+                      CustomMainButton(
+                        text: "Apply",
+                        onPressed: () {},
+                        width: AppDimensions.screenWidth * 0.24,
+                        paddingVertical: 0,
+                        paddingHorizontal: 0,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 32),
+                Text("_ " * 50, style: TextStyles.smallLightBlue, maxLines: 1),
+                SizedBox(height: 32),
+                Text(
+                  "- REVIEW PAYMENT",
+                  style: TextStyles.smallMontserratDarkBlue,
+                ),
+                SizedBox(height: 20),
+                Text(
+                  "PAYMENT SUMMARY",
+                  style: TextStyles.smallDarkBlue.copyWith(
+                    fontWeight: FontWeight.w500,
+                    fontSize: AppDimensions.fontSize(0.065),
+                  ),
+                ),
+                SizedBox(height: 40),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "subtotal",
+                      style: TextStyles.smallDarkBlue.copyWith(
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
-                    CustomMainButton(
-                      text: "Apply",
-                      onPressed: () {},
-                      width: AppDimensions.screenWidth * 0.24,
-                      paddingVertical: 0,
-                      paddingHorizontal: 0,
+                    Text(
+                      "120.00 EGP",
+                      style: TextStyles.smallDarkBlue.copyWith(
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ],
                 ),
-              ),
-              SizedBox(height: 32),
-              Text("_ " * 50, style: TextStyles.smallLightBlue, maxLines: 1),
-            ],
+                SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "SHIPPING FEES",
+                      style: TextStyles.smallDarkBlue.copyWith(
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    Text(
+                      "TO BE CALCULATED",
+                      style: TextStyles.smallDarkBlue.copyWith(
+                        fontWeight: FontWeight.w500,
+                        fontSize: AppDimensions.fontSize(0.035),
+                      ),
+                    ),
+                  ],
+                ),
+                Divider(color: Color(0xff73B9BB), height: 60, thickness: 1.3),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "TOTAL + VAT",
+                      style: TextStyles.smallMontserratDarkBlue,
+                    ),
+                    Text(
+                      "16.100 EGP",
+                      style: TextStyles.smallDarkBlue.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: AppDimensions.fontSize(0.035),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 35),
+                Align(
+                  alignment: Alignment.center,
+                  child: CustomIconTextButton(
+                    svgIconString: AppIcons.orderCart,
+                    text: "ORDER",
+                    onPressed: () {},
+                    width: AppDimensions.screenWidth * 0.7,
+                    paddingVertical: 24,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
